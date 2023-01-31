@@ -1,10 +1,13 @@
-import './search-box.styles.css';
+import "./search-box.styles.css";
+import { ChangeEventHandler } from "react";
 
-// İKİ SEÇENEĞİMİZ VAR. interface kullanırsak propları aynı isimler içinde ayrı ayrı yazarsak typescript bunları birleştirir. Veya TYPE kullanırsak bütün propları bir TYPE içinde yazabiliriz.
+// İKİ SEÇENEĞİMİZ VAR. interface kullanırsak ilk seçenek propları aynı isimler içinde ayrı ayrı yazmak. typescript bunları birleştirir. İkinci seçenek ise farklı interface isimleri altında yazabilir ve bunları "extend" metodu ile birleştirebiliriz.
+//  Veya TYPE kullanırsak bütün propları bir TYPE içinde yazabiliriz.
 
-interface ISearchBoxProps  {
+// İLK SEÇENEK
+interface ISearchBoxProps {
   className: string;
-  placeholder?: string; /* ?: means it can be string or null */
+  placeholder?: string /* ?: means it can be string or null */;
 }
 
 interface ISearchBoxProps {
@@ -13,18 +16,49 @@ interface ISearchBoxProps {
   ) => void /* if we wont return anything, we can write it void which means in javascript "undefined" */;
 }
 
+// İKİNCİ SEÇENEK
+interface ISearchBoxProps extends IChangeHandler {
+  className: string;
+  placeholder?: string /* ?: means it can be string or null */;
+}
+interface IChangeHandler {
+  onChangeHandler: (
+    a: string
+  ) => void /* if we wont return anything, we can write it void which means in javascript "undefined" */;
+}
+
+// BİR DİĞER METOD İSE "type" metodu:
+// İLK SEÇENEK BURADA OLDUĞU GİBİ HEPSİNİ BİR TYPE METODU İÇİNDE YAZABİLİRİZ
+
 type SearchBoxProps = {
   className: string;
   placeholder?: string;
-  onChangeHandler: (a:string) => void;
-}
+  onChangeHandler: ChangeEventHandler<HTMLInputElement>;
+};
 
-const SearchBox = ({ className, placeholder, onChangeHandler }: SearchBoxProps) => (
+// VEYA AŞAĞIDA OLDUĞU GİBİ AYRI AYRI YAZILAN TYPE METODLARINI BİRLEŞTİREBİLİRİZ:
+
+type TypeSearchBoxProps = {
+  className: string;
+  placeholder?: string;
+};
+
+type ChangeHandleProps = {
+  onChangeHandler: (a: string) => void;
+};
+
+type AllProps = TypeSearchBoxProps | ChangeHandleProps;
+
+const SearchBox = ({
+  className,
+  placeholder,
+  onChangeHandler,
+}: SearchBoxProps) => (
   <input
     className={`search-box ${className}`}
-    type='search'
+    type="search"
     placeholder={placeholder}
-    onChange={(e) => onChangeHandler(e)}
+    onChange={onChangeHandler}
   />
 );
 
