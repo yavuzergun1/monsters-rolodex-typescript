@@ -16,9 +16,6 @@ interface ISearchBoxProps {
   ) => void /* if we wont return anything, we can write it void which means in javascript "undefined" */;
 }
 
-
-
-
 // İKİNCİ SEÇENEK
 interface ISearchBoxProps extends IChangeHandler {
   className: string;
