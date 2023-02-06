@@ -1,5 +1,5 @@
 import "./search-box.styles.css";
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, ChangeEvent } from "react";
 
 // İKİ SEÇENEĞİMİZ VAR. interface kullanırsak ilk seçenek propları aynı isimler içinde ayrı ayrı yazmak. typescript bunları birleştirir. İkinci seçenek ise farklı interface isimleri altında yazabilir ve bunları "extend" metodu ile birleştirebiliriz.
 //  Veya TYPE kullanırsak bütün propları bir TYPE içinde yazabiliriz.
@@ -33,7 +33,10 @@ interface IChangeHandler {
 type SearchBoxProps = {
   className: string;
   placeholder?: string;
-  onChangeHandler: ChangeEventHandler<HTMLInputElement>;
+  func: ChangeEventHandler; /* şunu yazıp üzerine hover yaptığımızda bize yazmamız gereken fonksiyonu gösteriyor */
+  onChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+
+  // onChangeHandler: ChangeEventHandler<HTMLInputElement> Bu da diğer yöntemi
 };
 
 // VEYA AŞAĞIDA OLDUĞU GİBİ AYRI AYRI YAZILAN TYPE METODLARINI BİRLEŞTİREBİLİRİZ:
@@ -44,7 +47,7 @@ type TypeSearchBoxProps = {
 };
 
 type ChangeHandleProps = {
-  onChangeHandler: (a: string) => void;
+  onChangeHandler: ChangeEventHandler<HTMLInputElement>;
 };
 
 type AllProps = TypeSearchBoxProps | ChangeHandleProps;
