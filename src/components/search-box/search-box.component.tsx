@@ -33,7 +33,7 @@ interface IChangeHandler {
 type SearchBoxProps = {
   className: string;
   placeholder?: string;
-  func: ChangeEventHandler; /* şunu yazıp üzerine hover yaptığımızda bize yazmamız gereken fonksiyonu gösteriyor */
+  // func: ChangeEventHandler; /* şunu yazıp üzerine hover yaptığımızda bize yazmamız gereken fonksiyonu gösteriyor */
   onChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
 
   // onChangeHandler: ChangeEventHandler<HTMLInputElement> Bu da diğer yöntemi
